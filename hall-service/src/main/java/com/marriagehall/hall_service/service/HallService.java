@@ -4,6 +4,10 @@ import com.marriagehall.hall_service.dto.HallRequest;
 import com.marriagehall.hall_service.entity.Hall;
 import com.marriagehall.hall_service.repository.HallRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +40,17 @@ public class HallService {
         );
     }
 
-    public List<Hall> getVendorHalls(UUID vendorId) {
-        return hallRepository.findByVendorId(vendorId);
+    public Page<Hall> getAllHalls(
+            int page,
+            int size,
+            String sortBy
+
+    ){
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(sortBy).ascending()
+        );
+        return hallRepository.findAll(pageable);
     }
 }
