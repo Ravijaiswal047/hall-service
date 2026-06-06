@@ -11,6 +11,6 @@ public class HallRequest {
     private Double price;
     private Integer capacity;
     private  String description;
-    private UUID vendorId;
+
 
 }
